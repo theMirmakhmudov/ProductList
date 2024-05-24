@@ -21,7 +21,15 @@ class Home1Admin(admin.ModelAdmin):
 
 @admin.register(Home2)
 class Home2Admin(admin.ModelAdmin):
-    ...
+    list_display = ["product_name", "image_tag"]
+
+    def image_tag(self, obj):
+        return format_html(
+            f'''<a href="{obj.recently_product.image.image.url}" target="_blank"><img src="{obj.recently_product.image.image.url}"
+         alt="image" width="100 height="100" style="object-fit : cover;"/></a>''')
+
+    def product_name(self, obj):
+        return format_html(f"<b>{obj.recently_product.product_name}</b>")
 
 
 @admin.register(Images)
