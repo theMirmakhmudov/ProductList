@@ -28,3 +28,19 @@ class Home1(models.Model):
 
 class Home2(models.Model):
     recently_product = models.ForeignKey('apps.Product', on_delete=models.CASCADE)
+
+
+class Persons(models.Model):
+    image = models.ImageField(upload_to="Person", null=True, blank=True)
+
+
+class About1(models.Model):
+    image = models.ForeignKey('apps.Images', on_delete=models.CASCADE)
+    txt = models.CharField(max_length=55)
+    description = models.CharField(max_length=255)
+
+
+class AboutPerson(models.Model):
+    image = models.ForeignKey('apps.Persons', on_delete=models.CASCADE)
+    person_name = models.CharField(max_length=55)
+    staff = models.CharField(max_length=25)

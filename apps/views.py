@@ -3,7 +3,7 @@ from django.views.generic import ListView, CreateView, TemplateView
 from .forms import SignupForm, LoginForm
 from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login
-from .models import Product, Home1, Home2
+from .models import Product, Home1, Home2, About1, AboutPerson
 
 
 class RegisterView(FormView):
@@ -44,12 +44,20 @@ class HomeView(ListView):
         return context
 
 
-class AboutView(TemplateView):
+class AboutView(ListView):
     template_name = 'about.html'
+    model = About1
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["about"] = About1.objects.all()
+        context["about_person"] = AboutPerson.objects.all()
+        return context
 
 
-class ContactView(TemplateView):
+class ContactView(CreateView):
     template_name = 'contact.html'
+
 
 
 class ProductView(ListView):
