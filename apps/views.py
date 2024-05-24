@@ -1,9 +1,9 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, TemplateView
-from .forms import SignupForm, LoginForm
+from .forms import SignupForm, LoginForm, InputContact
 from django.views.generic.edit import FormView
 from django.contrib.auth import authenticate, login
-from .models import Product, Home1, Home2, About1, AboutPerson
+from .models import Product, Home1, Home2, About1, AboutPerson, ContactForm, Contact
 
 
 class RegisterView(FormView):
@@ -57,7 +57,15 @@ class AboutView(ListView):
 
 class ContactView(CreateView):
     template_name = 'contact.html'
+    model = ContactForm
+    success_url = "/"
+    form_class = InputContact
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["contactform"] = ContactForm.objects.all()
+        context["contact"] = Contact.objects.all()
+        return context
 
 
 class ProductView(ListView):
