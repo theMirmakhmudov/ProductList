@@ -28,6 +28,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -49,6 +50,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -88,6 +90,13 @@ DATABASES = {
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('es', 'Spanish'),
+    ('fr', 'French'),
+    ('hi', 'Hindi'),
+]
 
 TIME_ZONE = 'UTC'
 
@@ -138,7 +147,7 @@ JAZZMIN_SETTINGS = {
         # {"model": "auth.user"},
     ],
     "copyright": "Mr.Mirmakhmudov",
-
+    "language_chooser": True,
     "show_ui_builder": True,
     # "language_chooser": True,
     "default_icon_parents": "fas fa-chevron-circle-right",
